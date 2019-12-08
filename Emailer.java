@@ -29,6 +29,7 @@ public class Emailer
 		this.destination = destination;
 		//this.date = date;
 		this.targetPrice = targetPrice;
+		this.currPrice = currPrice;
 	}
 	
 	public void sendMail(String subject, String body) {
@@ -88,7 +89,7 @@ public class Emailer
 	//@Overload
 	public void sendMail() {
 		body = "Flight " + origin + " to " + destination + " has fallen below " + targetPrice
-				+ "and is now " + currPrice + ". Prices are subject to change quickly, so book now!";
+				+ " and is now " + currPrice + ". Prices are subject to change quickly, so book now!";
 		
 		subject = "Flight Tracker Update";
 		
@@ -142,11 +143,9 @@ public class Emailer
   
    public static void main(String [] args)  
    {     
-	   Emailer emailer = new Emailer("devine951@gmail.com");
+	   Emailer emailer = new Emailer("natpanzarini@gmail.com","SFO","SJC","420","400");
 	   
-	   for(int i = 0; i < 10; i++) {
-		   emailer.sendMail("ur awesome", "i just wanna elaborate that ur awesome!!!");
-	   }
+	   emailer.sendMail();
 	   
    
    } 

@@ -1,4 +1,4 @@
-package project;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -777,11 +777,9 @@ submit.addActionListener(event -> {
 	setEmail(emailInput.getText());
 	setOrigin((String)patternList.getSelectedItem());
 	setDestination((String)patternList2.getSelectedItem());
+	FlightApi api = new FlightApi();
 	
-	System.out.println(getEmail());
-	System.out.println(getPrice());
-	System.out.println(getOrigin());
-	System.out.println(getDestination());
+	api.APICall(origin, destination, emailText, priceText);
 });
 
 

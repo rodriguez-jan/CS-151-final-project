@@ -2,34 +2,59 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONArray;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class test {
 	public static void main(String args[]) {
 	try {
-			HttpResponse<JsonNode> response = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
+		HttpResponse<JsonNode> postCreateresponse = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
+				.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+				.header("X-RapidAPI-Key", "a1928a77c1msh587c896a62837fbp1e5cb2jsne4bc0c910566")
+				.header("Content-Type", "application/x-www-form-urlencoded")
+				.body("cabinClass=business&children=0&infants=0&country=US&currency=USD&locale=en-US&originPlace=SFO-sky&destinationPlace=LHR-sky&outboundDate=2019-12-20&adults=1")
+				.asJson();
+
+			List<String> location = postCreateresponse.getHeaders().get("Location");
+			String seshKey = location.get(0).replaceAll("http://partners.api.skyscanner.net/apiservices/pricing/uk2/v1.0/", "");
+			System.out.println(seshKey);
+			
+			String country = "US";
+			String currency = "USD";
+			String locale = "en-US";
+			String originPlace = "SFO-sky";
+			String destinationPLace = "JFK-sky";
+			String outBoundDate = "2019-12-20";
+			String requiredParams = String.format("/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s", country, currency,locale,originPlace,destinationPLace,outBoundDate);
+			String url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0" + requiredParams;
+	
+			
+			HttpResponse<JsonNode> response = Unirest.get(url)
 					.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
-					.header("X-RapidAPI-Key", "SIGN-UP-FOR-KEY")
-					.header("Content-Type", "application/x-www-form-urlencoded")
-					.field("inboundDate", "2019-09-10")
-					.field("cabinClass", "business")
-					.field("children", 0)
-					.field("infants", 0)
-					.field("country", "US")
-					.field("currency", "USD")
-					.field("locale", "en-US")
-					.field("originPlace", "SFO-sky")
-					.field("destinationPlace", "LHR-sky")
-					.field("outboundDate", "2019-09-01")
-					.field("adults", 1)
+					.header("X-RapidAPI-Key", "a1928a77c1msh587c896a62837fbp1e5cb2jsne4bc0c910566")
 					.asJson();
-			System.out.println(response);
+			
+			System.out.println(response.getBody().getObject());
+			
+			Double test = getMin(response.getBody().getObject());
+			System.out.println(test);
+			
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Hello World");
 
 	}
+	
+	public static Double getMin(JSONObject obj){
+	    JSONArray quotes =  obj.getJSONArray("Quotes");
+	    JSONObject quotesItems = (JSONObject) quotes.get(0);
+	    Double minPrice = (Double) quotesItems.get("MinPrice");
+	    return minPrice;
+	  }
 }

@@ -1,4 +1,8 @@
 # CS-151-final-project
+Group Members:
+Natalio Panzarini
+Adam Zhu
+Jan Rodriguez
 
 1. Create new maven project in eclipse
 

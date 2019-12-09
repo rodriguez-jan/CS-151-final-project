@@ -18,7 +18,7 @@ public class FlightApi {
 	 * @param email to send to
 	 * @param price of flight to check
 	 */
-	public void APICall(String origin, String destination, String email, String price) {
+	public String APICall(String origin, String destination, String email, String price) {
 		try {
 			HttpResponse<JsonNode> postCreateresponse = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
 					.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
@@ -49,20 +49,23 @@ public class FlightApi {
 				
 				System.out.println(response.getBody().getObject());
 				
-				Double test = getMin(response.getBody().getObject());
+				String test = getMin(response.getBody().getObject());
 				System.out.println(test);
 				
+				return test;
 			} catch (UnirestException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return e.toString();
 			}
 	}
 	
-	public static Double getMin(JSONObject obj){
+	public static String getMin(JSONObject obj){
 	    JSONArray quotes =  obj.getJSONArray("Quotes");
 	    JSONObject quotesItems = (JSONObject) quotes.get(0);
 	    Double minPrice = (Double) quotesItems.get("MinPrice");
-	    return minPrice;
+	    
+	    return Double.toString(minPrice);
 	  }
 
 	

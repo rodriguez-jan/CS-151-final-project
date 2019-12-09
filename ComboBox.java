@@ -779,7 +779,12 @@ submit.addActionListener(event -> {
 	setDestination((String)patternList2.getSelectedItem());
 	FlightApi api = new FlightApi();
 	
-	api.APICall(origin, destination, emailText, priceText);
+	String currentMin = api.APICall(origin, destination, emailText, priceText);
+	Emailer email = new Emailer(emailText, origin, destination, priceText, currentMin);
+	System.out.println(Double.parseDouble(currentMin) > Double.parseDouble(priceText));
+	if(Double.parseDouble(currentMin) <= Double.parseDouble(priceText)) {
+		email.sendMail();
+	}
 });
 
 

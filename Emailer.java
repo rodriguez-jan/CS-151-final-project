@@ -1,4 +1,4 @@
-package test.test1;
+
 
 import java.util.*; 
 import javax.mail.*; 
@@ -13,7 +13,7 @@ public class Emailer
 	private static String recipient;
 	private static String origin;
 	private static String destination;
-	private static String date; // needs to be XX-XX-XX format
+	private static String date; // needs to be YYYY-MM-DD format
 	private static String targetPrice;
 	private static String currPrice;
 	
@@ -23,6 +23,14 @@ public class Emailer
 	public Emailer(String recipient) {
 		this.recipient = recipient;
 	}
+	/**
+	 * 
+	 * @param recipient
+	 * @param origin
+	 * @param destination
+	 * @param targetPrice
+	 * @param currPrice
+	 */
 	public Emailer(String recipient,String origin,String destination, String targetPrice, String currPrice) {
 		this.recipient = recipient;
 		this.origin = origin;
@@ -60,6 +68,7 @@ public class Emailer
 	  
 	      try 
 	      { 
+	    	  
 	         // MimeMessage object. 
 	         MimeMessage message = new MimeMessage(session); 
 	  

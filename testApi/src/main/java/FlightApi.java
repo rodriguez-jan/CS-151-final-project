@@ -18,7 +18,7 @@ public class FlightApi {
 	 * @param email to send to
 	 * @param price of flight to check
 	 */
-	public String APICall(String origin, String destination, String email, String price) {
+	public String APICall(String origin, String destination,String date, String email, String price) {
 		try {
 //			HttpResponse<JsonNode> postCreateresponse = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
 //					.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
@@ -37,7 +37,7 @@ public class FlightApi {
 				String locale = "en-US";
 				String originPlace = origin+ "-sky";
 				String destinationPLace = destination + "-sky";
-				String outBoundDate = "2019-12-20";
+				String outBoundDate = date;
 				String requiredParams = String.format("/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s", country, currency,locale,originPlace,destinationPLace,outBoundDate);
 				String url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0" + requiredParams;
 		

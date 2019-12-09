@@ -1,4 +1,4 @@
-package project;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -785,9 +785,8 @@ submit.addActionListener(event -> {
 	
 	FlightApi api = new FlightApi();
 	
-	String currentMin = api.APICall(origin, destination, emailText, priceText);
-	Emailer email = new Emailer(emailText, origin, destination, priceText, currentMin);
-	System.out.println(Double.parseDouble(currentMin) > Double.parseDouble(priceText));
+	String currentMin = api.APICall(origin, destination,date, emailText, priceText);
+	Emailer email = new Emailer(emailText, origin, destination,date, priceText, currentMin);
 	if(Double.parseDouble(currentMin) <= Double.parseDouble(priceText)) {
 		email.sendMail();
 	}

@@ -20,14 +20,14 @@ public class FlightApi {
 	 */
 	public String APICall(String origin, String destination, String email, String price) {
 		try {
-			HttpResponse<JsonNode> postCreateresponse = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
-					.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
-					.header("X-RapidAPI-Key", "a1928a77c1msh587c896a62837fbp1e5cb2jsne4bc0c910566")
-					.header("Content-Type", "application/x-www-form-urlencoded")
-					.body("cabinClass=business&children=0&infants=0&country=US&currency=USD&locale=en-US&originPlace=SFO-sky&destinationPlace=LHR-sky&outboundDate=2019-12-20&adults=1")
-					.asJson();
+//			HttpResponse<JsonNode> postCreateresponse = Unirest.post("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing/v1.0")
+//					.header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+//					.header("X-RapidAPI-Key", "a1928a77c1msh587c896a62837fbp1e5cb2jsne4bc0c910566")
+//					.header("Content-Type", "application/x-www-form-urlencoded")
+//					.body("cabinClass=business&children=0&infants=0&country=US&currency=USD&locale=en-US&originPlace=SFO-sky&destinationPlace=LHR-sky&outboundDate=2019-12-20&adults=1")
+//					.asJson();
 
-				List<String> location = postCreateresponse.getHeaders().get("Location");
+//				List<String> location = postCreateresponse.getHeaders().get("Location");
 //				String seshKey = location.get(0).replaceAll("http://partners.api.skyscanner.net/apiservices/pricing/uk2/v1.0/", "");
 //				System.out.println(seshKey);
 				
@@ -51,6 +51,7 @@ public class FlightApi {
 				
 				String test = getMin(response.getBody().getObject());
 				System.out.println(test);
+				
 				
 				return test;
 			} catch (UnirestException e) {

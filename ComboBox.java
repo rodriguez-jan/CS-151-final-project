@@ -765,15 +765,11 @@ patternList2.addActionListener(this);
 JLabel patternLabel3 = new JLabel("Please enter a price");
 JTextField priceInput = new JTextField();
 priceInput.setEditable(true);
-
+//priceInput.addActionListener(this);
 
 JLabel patternLabel4 = new JLabel("Please enter your email");
 JTextField emailInput = new JTextField();
 priceInput.setEditable(true);
-
-JLabel patternLabel5 = new JLabel("Please enter desired date");
-JTextField dateInput = new JTextField();
-dateInput.setEditable(true);
 
 JButton submit = new JButton("Submit");
 submit.addActionListener(event -> {
@@ -781,12 +777,14 @@ submit.addActionListener(event -> {
 	setEmail(emailInput.getText());
 	setOrigin((String)patternList.getSelectedItem());
 	setDestination((String)patternList2.getSelectedItem());
-	setDate(dateInput.getText());
+	FlightApi api = new FlightApi();
 	
-	System.out.println(getEmail());
-	System.out.println(getPrice());
-	System.out.println(getOrigin());
-	System.out.println(getDestination());
+	String currentMin = api.APICall(origin, destination, emailText, priceText);
+	Emailer email = new Emailer(emailText, origin, destination, priceText, currentMin);
+	System.out.println(Double.parseDouble(currentMin) > Double.parseDouble(priceText));
+	if(Double.parseDouble(currentMin) <= Double.parseDouble(priceText)) {
+		email.sendMail();
+	}
 });
 
 
@@ -804,12 +802,10 @@ patternPanel.add(patternList2);
 patternPanel.add(patternLabel3);
 priceInput.setAlignmentX(Component.LEFT_ALIGNMENT);
 patternPanel.add(priceInput);
-patternPanel.add(patternLabel5);
-dateInput.setAlignmentX(Component.LEFT_ALIGNMENT);
-patternPanel.add(dateInput);
 patternPanel.add(patternLabel4);
 emailInput.setAlignmentX(Component.LEFT_ALIGNMENT);
 patternPanel.add(emailInput);
+
 
 
 JPanel resultPanel = new JPanel(new GridLayout(0, 1));
@@ -848,9 +844,6 @@ private void setDestination(String destination) {
 	this.destination = destination;
 }
 
-private void setDate(String date) {
-	this.date = date;
-}
 public String getEmail() {
 	return emailText;
 }
@@ -863,14 +856,10 @@ public String getOrigin() {
 public String getDestination() {
 	return destination;
 }
-public String getDate() {
-	return date;
-}
 
 private String origin;
 private String destination;
 private String priceText;
 private String emailText;
-private String date;
 
 }
